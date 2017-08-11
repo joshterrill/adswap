@@ -1,0 +1,76 @@
+<div class="container">
+	<h1>adswap <small>Serve ads to people using AdBlock</small></h1>
+	<p>adswap allows you to serve alternative ads to people running AdBlock/AdBlocker. It's written in pure javascript, no extra libraries are needed.</p>
+	<div class="adblock-status"></div>
+	<script>
+		if (adswap) {
+			document.querySelector(".adblock-status").innerHTML = '<button class="btn btn-success" type="button">You are using adblock</button>';
+		} else {
+			document.querySelector(".adblock-status").innerHTML = '<button class="btn btn-danger" type="button">You are not using adblock</button>';
+		}
+	</script>
+
+	<h2>How to use adswap:</h2>
+	<p>Wherever you have ads placed, inside of the adblock, add a comment with the following parameters:</p>
+	<xmp>
+	<!-- adswap adswapImage: <ad image> adswapLink: <ad link> -->
+	</xmp>
+	<p>Here's an example of a functional adswap block that will show this image: <a href="http://placehold.it/800x90">http://placehold.it/800x90</a> with this link: <a href="http://google.com">http://google.com</a>.</p>
+	<xmp>
+	<!-- adswap adswapImage: http://placehold.it/800x90 adswapLink: http://google.com -->
+	</xmp>
+	
+	<p>Then all you have to do is copy the two javascript files from the views/js folder of this project and add them to the header on your page file in this order:</p>
+	<xmp>
+	<script src="http://yoursite.com/js/adframe.js"></script>  
+  	<script src="http://yoursite.com/js/client.js"></script>
+	</xmp>
+
+	<p>When a page loads, if adblock is enabled, the ad that you have setup using the HTML comment above will take its place. Here are a few examples: (note if adblock is not enabled you will not see the replacement images)
+
+	<h3>Ad 1 (800x90):</h3>
+	<xmp>
+	<!-- adswap adswapImage: http://placehold.it/800x90 adswapLink: http://yahoo.com -->
+	</xmp>
+	<div class="code-block">
+	<!-- adswap adswapImage: http://placehold.it/800x90 adswapLink: http://yahoo.com -->
+	</div>
+
+	<h3>Ad 2 (325x200):</h3>
+	<xmp>
+	<!-- adswap adswapImage: http://placehold.it/325x200 adswapLink: http://google.com -->
+	</xmp>
+	<div class="code-block">
+	<!-- adswap adswapImage: http://placehold.it/325x200 adswapLink: http://google.com -->
+	</div>
+
+	<h2>Using the analytics API</h2>
+	<p>This project also has a small node server that can connect to a mongodb database and report a small amount of data on users that are coming to your site that are using adblock. It is an optional feature that is disabled by default.</p>
+	<p>If you would like to use it, go to js/client.js and uncomment line 7 to enable the monitor function to be called when adblock is enabled, and then change the hostname variable on line 27 to whatever URL the node server will be running on.</p>
+	<p>Now that the client files are setup, you need to configure the server. The only thing that needs to be done is to edit the app.js file by modifying line 10 and put the correct mongodb connection information in there.</p>
+	<p>The last step is to install and run the node server, to do this just clone this repository onto a server with node installed, run npm install to install the modules, and then start the server with npm start.</p>
+
+	<h3>The API</h3>
+	<p>You will have access to 3 endpoints.</p>
+
+	<h4>GET <a href="/list">/list</a></h4>
+	<p>Returns a list of all domains that the script is installed on, along with how many "hits" your site has gotten with users that use adblock and some information about each user such as user agent, date time accessed, platform, operating system, etc.</p>
+
+	<h4>GET /list/:url (i.e. <a href="https://swapclient.herokuapp.com/list/swapclient.herokuapp.com">https://swapclient.herokuapp.com/list/swapclient.herokuapp.com</a>)</h4>
+	<p>Returns data for just one URL</p>
+
+	<h4>POST /monitor</h4>
+	<pre>
+info: {
+	date: new Date(),
+	appVersion: navigator.appVersion,
+	language: navigator.language,
+	platform: navigator.platform,
+	userAgent: navigator.userAgent,
+	vendor: navigator.vendor
+}
+	</pre>
+	<p>Posts info object through to database</p>
+
+	<h3>Questions? <a href="mailto:joshterrill.dev@gmail.com">joshterrill.dev@gmail.com</a></h3>
+</div>
