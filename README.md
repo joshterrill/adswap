@@ -2,7 +2,7 @@
 
 adswap allows you to serve alternative ads to people running AdBlock/AdBlocker. It's written in pure javascript, no extra libraries are needed.
 
-DEMO URL: https://swapclient.herokuapp.com
+DEMO URL: https://adspy.herokuapp.com/
 
 ## How to use adswap
 
