@@ -1,6 +1,6 @@
 var adswap = true;
 
-window.onload = function() {
+window.onload = function () {
 	if (adswap) {
 		// console.log("adswap is enabled");
 		// OPTIONAL monitor call, uncomment if you want to use it, see README.md
@@ -11,6 +11,17 @@ window.onload = function() {
 	}
 }
 
+function uniqueID_Class() {
+	function chr4() {
+		return Math.random().toString(16).slice(-4);
+	}
+	return chr4() + chr4() +
+		'-' + chr4() +
+		'-' + chr4() +
+		'-' + chr4() +
+		'-' + chr4() + chr4() + chr4();
+}
+
 function replaceAds() {
 	var adDetails, adLink, adImage;
 	for (var i = 0; i < document.querySelectorAll(".code-block").length; i++) {
@@ -18,7 +29,9 @@ function replaceAds() {
 		if (adDetails) {
 			adLink = adDetails[1].match(/adswapLink: (.*?) /i)[1];
 			adImage = adDetails[1].match(/adswapImage: (.*?) /i)[1];
-			document.querySelectorAll(".code-block")[i].innerHTML += "<a href='" + adLink +"'><img src='" + adImage + "'></a>";
+			document.querySelectorAll(".code-block")[i].innerHTML += "<a id= " + uniqueID_Class() + " class="
+				+ uniqueID_Class() + " href='" + adLink + "'><img id= " + uniqueID_Class() + " class="
+				+ uniqueID_Class() + " src='" + adImage + "'></a>";
 		}
 	}
 }
@@ -41,9 +54,9 @@ function monitor() {
 		headers: new Headers({
 			'Content-Type': 'application/json'
 		})
-	}).then(function(response) {
+	}).then(function (response) {
 		return response.json();
-	}).then(function(data) {
+	}).then(function (data) {
 		// console.log(data);
 	});
 }
