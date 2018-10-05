@@ -1,5 +1,7 @@
 # adswap
 
+**Note: You will need to disable adblock in order to be able to view this repo on Github**
+
 adswap allows you to serve alternative ads to people running AdBlock/AdBlocker. It's written in pure javascript, no extra libraries are needed.
 
 DEMO URL: https://adspy.herokuapp.com/
